@@ -119,31 +119,10 @@ function handleGoBack() {
         </div>
 
         <!-- Footer -->
-        <div
-          class="mt-12 pt-8 border-t border-slate-700/50 flex items-center justify-between"
-        >
-          <div class="text-slate-500 text-sm">
+        <div class="mt-12 pt-8 border-t border-slate-700/50">
+          <p class="text-slate-500 text-sm text-center">
             Artículo completo
-          </div>
-          <button
-            @click="handleGoBack"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-white rounded-xl font-medium transition-all duration-300 border border-emerald-500/30 hover:border-emerald-500"
-          >
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Volver a artículos
-          </button>
+          </p>
         </div>
       </div>
     </article>

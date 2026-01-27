@@ -2,6 +2,8 @@
 import { onMounted } from 'vue'
 import { usePostsStore } from '../store/postsStore'
 import PostCard from '../components/PostCard.vue'
+import SearchBar from '../components/SearchBar.vue'
+import EmptyState from '../components/EmptyState.vue'
 
 const store = usePostsStore()
 
@@ -35,6 +37,17 @@ function handleViewDetails(id: number) {
         para leer el contenido completo.
       </p>
     </header>
+
+    <!-- Barra de búsqueda -->
+    <div class="max-w-xl mx-auto mb-10">
+      <SearchBar
+        :model-value="store.searchQuery"
+        @update:model-value="store.setSearchQuery"
+        placeholder="Buscar artículos por título..."
+        :results-count="store.filteredPosts.length"
+        :show-results-count="true"
+      />
+    </div>
 
     <!-- Loading State -->
     <div
@@ -75,37 +88,99 @@ function handleViewDetails(id: number) {
     </div>
 
     <!-- Posts Grid -->
-    <div
-      v-else
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-    >
-      <PostCard
-        v-for="post in store.firstTenPosts"
-        :key="post.id"
-        :post="post"
-        @view-details="handleViewDetails"
-      />
-    </div>
-
-    <!-- Empty State -->
-    <div
-      v-if="!store.isLoading && !store.error && store.firstTenPosts.length === 0"
-      class="text-center py-20"
-    >
-      <svg
-        class="w-16 h-16 text-slate-600 mx-auto mb-4"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
+    <template v-else>
+      <div
+        v-if="store.paginatedPosts.length > 0"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+        <PostCard
+          v-for="post in store.paginatedPosts"
+          :key="post.id"
+          :post="post"
+          @view-details="handleViewDetails"
         />
-      </svg>
-      <p class="text-slate-500">No hay artículos disponibles</p>
-    </div>
+      </div>
+
+      <!-- Empty State: sin resultados de búsqueda -->
+      <EmptyState
+        v-else-if="store.searchQuery"
+        icon="search"
+        title="No se encontraron artículos"
+        subtitle="Intenta con otro término de búsqueda"
+      />
+
+      <!-- Empty State: sin posts -->
+      <EmptyState
+        v-else
+        icon="empty"
+        title="No hay artículos disponibles"
+      />
+
+      <!-- Paginación -->
+      <nav
+        v-if="store.totalPages > 1"
+        class="flex items-center justify-center gap-2 mt-12"
+      >
+        <!-- Botón Anterior -->
+        <button
+          @click="store.prevPage()"
+          :disabled="!store.hasPrevPage"
+          class="flex items-center gap-1 px-4 py-2 rounded-lg border transition-all duration-300"
+          :class="store.hasPrevPage 
+            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400' 
+            : 'border-slate-800 text-slate-600 cursor-not-allowed'"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Anterior
+        </button>
+
+        <!-- Números de página -->
+        <div class="flex items-center gap-1">
+          <template v-for="page in store.totalPages" :key="page">
+            <!-- Mostrar primera página, última, actual y adyacentes -->
+            <button
+              v-if="page === 1 || page === store.totalPages || (page >= store.currentPage - 1 && page <= store.currentPage + 1)"
+              @click="store.goToPage(page)"
+              class="w-10 h-10 rounded-lg font-medium transition-all duration-300"
+              :class="page === store.currentPage 
+                ? 'bg-emerald-500 text-white' 
+                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'"
+            >
+              {{ page }}
+            </button>
+            <!-- Puntos suspensivos -->
+            <span
+              v-else-if="page === store.currentPage - 2 || page === store.currentPage + 2"
+              class="w-10 h-10 flex items-center justify-center text-slate-600"
+            >
+              ...
+            </span>
+          </template>
+        </div>
+
+        <!-- Botón Siguiente -->
+        <button
+          @click="store.nextPage()"
+          :disabled="!store.hasNextPage"
+          class="flex items-center gap-1 px-4 py-2 rounded-lg border transition-all duration-300"
+          :class="store.hasNextPage 
+            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400' 
+            : 'border-slate-800 text-slate-600 cursor-not-allowed'"
+        >
+          Siguiente
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Info de paginación -->
+      <p v-if="store.totalPages > 1" class="text-center text-slate-500 text-sm mt-4">
+        Página {{ store.currentPage }} de {{ store.totalPages }} · 
+        {{ store.filteredPosts.length }} artículo(s) en total
+      </p>
+    </template>
   </section>
 </template>

@@ -9,16 +9,48 @@ export const usePostsStore = defineStore('posts', () => {
   const selectedPost = ref<Post | null>(null)
   const isLoading = ref(false)
   const error = ref<string | null>(null)
+  
+  // Estado para búsqueda y paginación
+  const searchQuery = ref('')
+  const currentPage = ref(1)
+  const postsPerPage = ref(10)
 
   // Getters
   
-  //obtiene los primeros 10 posts
-  const firstTenPosts = computed(() => posts.value.slice(0, 10))
+  //filtra posts por título según el término de búsqueda
+  const filteredPosts = computed(() => {
+    if (!searchQuery.value.trim()) {
+      return posts.value
+    }
+    const query = searchQuery.value.toLowerCase().trim()
+    return posts.value.filter(post => 
+      post.title.toLowerCase().includes(query)
+    )
+  })
+
+  //calcula el total de páginas según los posts filtrados
+  const totalPages = computed(() => 
+    Math.ceil(filteredPosts.value.length / postsPerPage.value)
+  )
+
+  //obtiene los posts de la página actual (con filtro aplicado)
+  const paginatedPosts = computed(() => {
+    const start = (currentPage.value - 1) * postsPerPage.value
+    const end = start + postsPerPage.value
+    return filteredPosts.value.slice(start, end)
+  })
 
   //indica si hay posts cargados
   const hasPosts = computed(() => posts.value.length > 0)
 
+  //indica si hay una página siguiente
+  const hasNextPage = computed(() => currentPage.value < totalPages.value)
+
+  //indica si hay una página anterior
+  const hasPrevPage = computed(() => currentPage.value > 1)
+
   // Actions
+  
   //carga todos los posts desde la API
   async function fetchPosts() {
     isLoading.value = true
@@ -58,6 +90,33 @@ export const usePostsStore = defineStore('posts', () => {
     }
   }
 
+  //actualiza el término de búsqueda y resetea a la página 1
+  function setSearchQuery(query: string) {
+    searchQuery.value = query
+    currentPage.value = 1
+  }
+
+  //navega a una página específica
+  function goToPage(page: number) {
+    if (page >= 1 && page <= totalPages.value) {
+      currentPage.value = page
+    }
+  }
+
+  //navega a la página siguiente
+  function nextPage() {
+    if (hasNextPage.value) {
+      currentPage.value++
+    }
+  }
+
+  //navega a la página anterior
+  function prevPage() {
+    if (hasPrevPage.value) {
+      currentPage.value--
+    }
+  }
+
   //limpia el post seleccionado
   function clearSelectedPost() {
     selectedPost.value = null
@@ -69,6 +128,8 @@ export const usePostsStore = defineStore('posts', () => {
     selectedPost.value = null
     isLoading.value = false
     error.value = null
+    searchQuery.value = ''
+    currentPage.value = 1
   }
 
   return {
@@ -77,12 +138,23 @@ export const usePostsStore = defineStore('posts', () => {
     selectedPost,
     isLoading,
     error,
+    searchQuery,
+    currentPage,
+    postsPerPage,
     //getters
-    firstTenPosts,
+    filteredPosts,
+    paginatedPosts,
+    totalPages,
     hasPosts,
+    hasNextPage,
+    hasPrevPage,
     //actions
     fetchPosts,
     selectPost,
+    setSearchQuery,
+    goToPage,
+    nextPage,
+    prevPage,
     clearSelectedPost,
     resetStore,
   }

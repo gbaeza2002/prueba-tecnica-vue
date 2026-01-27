@@ -48,7 +48,7 @@ function showPostsList() {
 
     <!-- Footer -->
     <footer class="relative z-10 text-center py-8 text-slate-600 text-sm">
-      <p>Prueba Técnica Vue.js · Pinia · TypeScript · TailwindCSS</p>
+      <p>Graciany Baeza Jara - Full stack developer</p>
     </footer>
   </div>
 </template>
