@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import PostsList from './views/PostsList.vue'
 import PostDetail from './views/PostDetail.vue'
+import gifImage from './assets/200w.gif'
 
 type View = 'list' | 'detail'
 
 const currentView = ref<View>('list')
+
+// Precargar el GIF al iniciar la app para que esté en caché
+onMounted(() => {
+  const img = new Image()
+  img.src = gifImage
+})
 
 function showPostDetail() {
   currentView.value = 'detail'
