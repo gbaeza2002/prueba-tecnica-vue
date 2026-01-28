@@ -43,7 +43,7 @@ const emit = defineEmits<{
     <!-- Botón -->
     <button
       @click="emit('viewDetails', post.id)"
-      class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-white rounded-lg font-medium text-sm transition-all duration-300 border border-emerald-500/30 hover:border-emerald-500"
+      class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-white rounded-xl font-medium text-sm transition-all duration-300 border border-emerald-500/30 hover:border-emerald-500 active:scale-[0.98]"
     >
       Ver más detalles
       <svg

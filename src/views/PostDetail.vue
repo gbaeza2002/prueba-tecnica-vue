@@ -18,7 +18,7 @@ function handleGoBack() {
     <!-- Botón Volver -->
     <button
       @click="handleGoBack"
-      class="inline-flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors duration-300 mb-8 group"
+      class="inline-flex items-center gap-2 px-4 py-3 sm:py-2 text-slate-400 hover:text-emerald-400 hover:bg-slate-800/50 rounded-xl transition-all duration-300 mb-6 sm:mb-8 group active:scale-[0.98]"
     >
       <svg
         class="w-5 h-5 transition-transform group-hover:-translate-x-1"
@@ -86,14 +86,14 @@ function handleGoBack() {
 
       <div class="p-8 md:p-12">
         <!-- Meta info -->
-        <div class="flex items-center gap-4 mb-6">
+        <div class="flex flex-wrap items-center gap-2 sm:gap-4 mb-6">
           <span
-            class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-mono"
+            class="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-mono"
           >
             Post #{{ store.selectedPost.id }}
           </span>
           <span
-            class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-slate-700/50 text-slate-400 text-sm"
+            class="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 rounded-full bg-slate-700/50 text-slate-400 text-xs sm:text-sm"
           >
             Usuario {{ store.selectedPost.userId }}
           </span>

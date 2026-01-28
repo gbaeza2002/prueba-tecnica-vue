@@ -116,44 +116,84 @@ function handleViewDetails(id: number) {
         title="No hay artículos disponibles"
       />
 
-      <!-- Paginación -->
+      <!-- Paginación Mobile: Simple y compacta -->
       <nav
         v-if="store.totalPages > 1"
-        class="flex items-center justify-center gap-2 mt-12"
+        class="flex sm:hidden items-center justify-center gap-3 mt-12"
+      >
+        <button
+          @click="store.prevPage()"
+          :disabled="!store.hasPrevPage"
+          class="flex items-center justify-center w-12 h-12 rounded-xl border transition-all duration-300"
+          :class="store.hasPrevPage 
+            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400 active:scale-95' 
+            : 'border-slate-800 text-slate-600 cursor-not-allowed'"
+          aria-label="Página anterior"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <!-- Indicador de página central -->
+        <div class="flex items-center gap-2 px-4 py-2 bg-slate-800/50 rounded-xl border border-slate-700/50">
+          <span class="text-emerald-400 font-semibold">{{ store.currentPage }}</span>
+          <span class="text-slate-500">/</span>
+          <span class="text-slate-400">{{ store.totalPages }}</span>
+        </div>
+
+        <button
+          @click="store.nextPage()"
+          :disabled="!store.hasNextPage"
+          class="flex items-center justify-center w-12 h-12 rounded-xl border transition-all duration-300"
+          :class="store.hasNextPage 
+            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400 active:scale-95' 
+            : 'border-slate-800 text-slate-600 cursor-not-allowed'"
+          aria-label="Página siguiente"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Paginación Desktop: Con números de página -->
+      <nav
+        v-if="store.totalPages > 1"
+        class="hidden sm:flex items-center justify-center gap-3 mt-12"
       >
         <!-- Botón Anterior -->
         <button
           @click="store.prevPage()"
           :disabled="!store.hasPrevPage"
-          class="flex items-center gap-1 px-4 py-2 rounded-lg border transition-all duration-300"
+          class="flex items-center justify-center gap-1.5 h-11 px-4 rounded-xl border transition-all duration-300"
           :class="store.hasPrevPage 
-            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400' 
+            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400 active:scale-95' 
             : 'border-slate-800 text-slate-600 cursor-not-allowed'"
+          aria-label="Página anterior"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
-          Anterior
+          <span>Anterior</span>
         </button>
 
         <!-- Números de página -->
-        <div class="flex items-center gap-1">
+        <div class="flex items-center gap-1.5">
           <template v-for="page in store.totalPages" :key="page">
-            <!-- Mostrar primera página, última, actual y adyacentes -->
             <button
               v-if="page === 1 || page === store.totalPages || (page >= store.currentPage - 1 && page <= store.currentPage + 1)"
               @click="store.goToPage(page)"
-              class="w-10 h-10 rounded-lg font-medium transition-all duration-300"
+              class="w-11 h-11 rounded-xl font-medium transition-all duration-300 active:scale-95"
               :class="page === store.currentPage 
-                ? 'bg-emerald-500 text-white' 
+                ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' 
                 : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'"
             >
               {{ page }}
             </button>
-            <!-- Puntos suspensivos -->
             <span
               v-else-if="page === store.currentPage - 2 || page === store.currentPage + 2"
-              class="w-10 h-10 flex items-center justify-center text-slate-600"
+              class="w-10 h-11 flex items-center justify-center text-slate-600"
             >
               ...
             </span>
@@ -164,13 +204,14 @@ function handleViewDetails(id: number) {
         <button
           @click="store.nextPage()"
           :disabled="!store.hasNextPage"
-          class="flex items-center gap-1 px-4 py-2 rounded-lg border transition-all duration-300"
+          class="flex items-center justify-center gap-1.5 h-11 px-4 rounded-xl border transition-all duration-300"
           :class="store.hasNextPage 
-            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400' 
+            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400 active:scale-95' 
             : 'border-slate-800 text-slate-600 cursor-not-allowed'"
+          aria-label="Página siguiente"
         >
-          Siguiente
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span>Siguiente</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -178,7 +219,6 @@ function handleViewDetails(id: number) {
 
       <!-- Info de paginación -->
       <p v-if="store.totalPages > 1" class="text-center text-slate-500 text-sm mt-4">
-        Página {{ store.currentPage }} de {{ store.totalPages }} · 
         {{ store.filteredPosts.length }} artículo(s) en total
       </p>
     </template>
