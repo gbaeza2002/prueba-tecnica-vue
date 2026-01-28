@@ -1,6 +1,6 @@
 # Prueba Técnica Vue.js - Lista de Artículos
 
-**Demo en vivo:** [https://prueba-tecnica-mp9jta1d4-gracianys-projects.vercel.app/](https://prueba-tecnica-mp9jta1d4-gracianys-projects.vercel.app/)
+**Demo en vivo:** [https://prueba-tecnica-vue-iota.vercel.app/](https://prueba-tecnica-vue-iota.vercel.app/)
 
 Aplicación web desarrollada con Vue 3, Pinia, TypeScript y TailwindCSS que consume la API de JSONPlaceholder para mostrar una lista de artículos con funcionalidades de búsqueda y paginación.
 
