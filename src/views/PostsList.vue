@@ -4,6 +4,7 @@ import { usePostsStore } from '../store/postsStore'
 import PostCard from '../components/PostCard.vue'
 import SearchBar from '../components/SearchBar.vue'
 import EmptyState from '../components/EmptyState.vue'
+import logoImg from '../assets/logo-header.png'
 
 const store = usePostsStore()
 
@@ -27,12 +28,18 @@ function handleViewDetails(id: number) {
   <section class="w-full">
     <!-- Header -->
     <header class="text-center mb-12">
+      <!-- Logo -->
+      <img 
+        :src="logoImg" 
+        alt="Logo" 
+        class="w-32 h-32 md:w-40 md:h-40 mx-auto mb-4 object-contain"
+      />
       <h1
-        class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent mb-4"
+        class="text-4xl md:text-5xl font-bold text-sky-500 mb-4"
       >
         Artículos
       </h1>
-      <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+      <p class="text-slate-600 text-lg max-w-2xl mx-auto">
         Explora nuestra colección de artículos. Haz clic en "Ver más detalles"
         para leer el contenido completo.
       </p>
@@ -55,15 +62,15 @@ function handleViewDetails(id: number) {
       class="flex flex-col items-center justify-center py-20"
     >
       <div
-        class="w-12 h-12 border-4 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin mb-4"
+        class="w-12 h-12 border-4 border-sky-200 border-t-sky-500 rounded-full animate-spin mb-4"
       ></div>
-      <p class="text-slate-400">Cargando artículos...</p>
+      <p class="text-slate-500">Cargando artículos...</p>
     </div>
 
     <!-- Error State -->
     <div
       v-else-if="store.error"
-      class="bg-red-500/10 border border-red-500/30 rounded-2xl p-8 text-center max-w-md mx-auto"
+      class="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-md mx-auto"
     >
       <svg
         class="w-12 h-12 text-red-400 mx-auto mb-4"
@@ -78,10 +85,10 @@ function handleViewDetails(id: number) {
           d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
         />
       </svg>
-      <p class="text-red-300 mb-4">{{ store.error }}</p>
+      <p class="text-red-600 mb-4">{{ store.error }}</p>
       <button
         @click="store.fetchPosts()"
-        class="px-6 py-2 bg-red-500/20 hover:bg-red-500 text-red-300 hover:text-white rounded-lg transition-all duration-300"
+        class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all duration-300"
       >
         Reintentar
       </button>
@@ -126,8 +133,8 @@ function handleViewDetails(id: number) {
           :disabled="!store.hasPrevPage"
           class="flex items-center justify-center w-12 h-12 rounded-xl border transition-all duration-300"
           :class="store.hasPrevPage 
-            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400 active:scale-95' 
-            : 'border-slate-800 text-slate-600 cursor-not-allowed'"
+            ? 'border-slate-300 text-slate-600 hover:border-sky-500 hover:text-sky-500 active:scale-95' 
+            : 'border-slate-200 text-slate-300 cursor-not-allowed'"
           aria-label="Página anterior"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,10 +143,10 @@ function handleViewDetails(id: number) {
         </button>
 
         <!-- Indicador de página central -->
-        <div class="flex items-center gap-2 px-4 py-2 bg-slate-800/50 rounded-xl border border-slate-700/50">
-          <span class="text-emerald-400 font-semibold">{{ store.currentPage }}</span>
-          <span class="text-slate-500">/</span>
-          <span class="text-slate-400">{{ store.totalPages }}</span>
+        <div class="flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-sky-500 font-semibold">{{ store.currentPage }}</span>
+          <span class="text-slate-400">/</span>
+          <span class="text-slate-500">{{ store.totalPages }}</span>
         </div>
 
         <button
@@ -147,8 +154,8 @@ function handleViewDetails(id: number) {
           :disabled="!store.hasNextPage"
           class="flex items-center justify-center w-12 h-12 rounded-xl border transition-all duration-300"
           :class="store.hasNextPage 
-            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400 active:scale-95' 
-            : 'border-slate-800 text-slate-600 cursor-not-allowed'"
+            ? 'border-slate-300 text-slate-600 hover:border-sky-500 hover:text-sky-500 active:scale-95' 
+            : 'border-slate-200 text-slate-300 cursor-not-allowed'"
           aria-label="Página siguiente"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,8 +175,8 @@ function handleViewDetails(id: number) {
           :disabled="!store.hasPrevPage"
           class="flex items-center justify-center gap-1.5 h-11 px-4 rounded-xl border transition-all duration-300"
           :class="store.hasPrevPage 
-            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400 active:scale-95' 
-            : 'border-slate-800 text-slate-600 cursor-not-allowed'"
+            ? 'border-slate-300 text-slate-600 hover:border-sky-500 hover:text-sky-500 active:scale-95' 
+            : 'border-slate-200 text-slate-300 cursor-not-allowed'"
           aria-label="Página anterior"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,14 +193,14 @@ function handleViewDetails(id: number) {
               @click="store.goToPage(page)"
               class="w-11 h-11 rounded-xl font-medium transition-all duration-300 active:scale-95"
               :class="page === store.currentPage 
-                ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' 
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'"
+                ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/30' 
+                : 'text-slate-500 hover:bg-slate-100 hover:text-sky-500'"
             >
               {{ page }}
             </button>
             <span
               v-else-if="page === store.currentPage - 2 || page === store.currentPage + 2"
-              class="w-10 h-11 flex items-center justify-center text-slate-600"
+              class="w-10 h-11 flex items-center justify-center text-slate-400"
             >
               ...
             </span>
@@ -206,8 +213,8 @@ function handleViewDetails(id: number) {
           :disabled="!store.hasNextPage"
           class="flex items-center justify-center gap-1.5 h-11 px-4 rounded-xl border transition-all duration-300"
           :class="store.hasNextPage 
-            ? 'border-slate-700 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400 active:scale-95' 
-            : 'border-slate-800 text-slate-600 cursor-not-allowed'"
+            ? 'border-slate-300 text-slate-600 hover:border-sky-500 hover:text-sky-500 active:scale-95' 
+            : 'border-slate-200 text-slate-300 cursor-not-allowed'"
           aria-label="Página siguiente"
         >
           <span>Siguiente</span>

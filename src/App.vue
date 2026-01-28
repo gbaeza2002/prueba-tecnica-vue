@@ -17,17 +17,17 @@ function showPostsList() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+  <div class="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-white">
     <!-- Patrón de fondo decorativo -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
       <div
-        class="absolute -top-40 -right-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl"
+        class="absolute -top-40 -right-40 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl"
       ></div>
       <div
-        class="absolute top-1/2 -left-40 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl"
+        class="absolute top-1/2 -left-40 w-80 h-80 bg-sky-400/10 rounded-full blur-3xl"
       ></div>
       <div
-        class="absolute -bottom-40 right-1/3 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"
+        class="absolute -bottom-40 right-1/3 w-80 h-80 bg-sky-300/10 rounded-full blur-3xl"
       ></div>
     </div>
 
@@ -47,7 +47,7 @@ function showPostsList() {
     </main>
 
     <!-- Footer -->
-    <footer class="relative z-10 text-center py-8 text-slate-600 text-sm">
+    <footer class="relative z-10 text-center py-8 text-slate-500 text-sm">
       <p>Graciany Baeza Jara - Full stack developer</p>
     </footer>
   </div>

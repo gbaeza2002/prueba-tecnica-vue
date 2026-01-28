@@ -18,7 +18,7 @@ withDefaults(defineProps<Props>(), {
     <!-- Ícono de búsqueda sin resultados -->
     <svg
       v-if="icon === 'search'"
-      class="w-16 h-16 text-slate-600 mx-auto mb-4"
+      class="w-16 h-16 text-slate-300 mx-auto mb-4"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -34,7 +34,7 @@ withDefaults(defineProps<Props>(), {
     <!-- Ícono de caja vacía -->
     <svg
       v-else-if="icon === 'empty'"
-      class="w-16 h-16 text-slate-600 mx-auto mb-4"
+      class="w-16 h-16 text-slate-300 mx-auto mb-4"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -50,7 +50,7 @@ withDefaults(defineProps<Props>(), {
     <!-- Ícono de error -->
     <svg
       v-else-if="icon === 'error'"
-      class="w-16 h-16 text-slate-600 mx-auto mb-4"
+      class="w-16 h-16 text-slate-300 mx-auto mb-4"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -64,10 +64,10 @@ withDefaults(defineProps<Props>(), {
     </svg>
 
     <!-- Título -->
-    <p class="text-slate-500 mb-2">{{ title }}</p>
+    <p class="text-slate-600 mb-2">{{ title }}</p>
     
     <!-- Subtítulo opcional -->
-    <p v-if="subtitle" class="text-slate-600 text-sm">{{ subtitle }}</p>
+    <p v-if="subtitle" class="text-slate-400 text-sm">{{ subtitle }}</p>
 
     <!-- Slot para contenido adicional (botones, etc.) -->
     <div v-if="$slots.default" class="mt-4">

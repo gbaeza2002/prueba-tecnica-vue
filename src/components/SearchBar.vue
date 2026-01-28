@@ -34,11 +34,11 @@ function clearSearch() {
         :value="modelValue"
         @input="handleInput"
         :placeholder="placeholder"
-        class="w-full px-5 py-4 pl-12 bg-slate-800/50 border border-slate-700/50 rounded-2xl text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300"
+        class="w-full px-5 py-4 pl-12 bg-white border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100 transition-all duration-300 shadow-sm"
       />
       <!-- Ícono de búsqueda -->
       <svg
-        class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500"
+        class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-sky-500"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -54,7 +54,7 @@ function clearSearch() {
       <button
         v-if="modelValue"
         @click="clearSearch"
-        class="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-slate-700 hover:bg-slate-600 text-slate-400 hover:text-slate-200 transition-colors"
+        class="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-slate-100 hover:bg-sky-100 text-slate-400 hover:text-sky-500 transition-colors"
         aria-label="Limpiar búsqueda"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

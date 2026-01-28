@@ -14,36 +14,36 @@ const emit = defineEmits<{
 
 <template>
   <article
-    class="group relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10"
+    class="group relative bg-white rounded-2xl p-6 border border-slate-200 hover:border-sky-300 transition-all duration-300 hover:shadow-lg hover:shadow-sky-100"
   >
     <!-- Decorador superior -->
     <div
-      class="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      class="absolute top-0 left-6 right-6 h-1 bg-gradient-to-r from-transparent via-sky-500 to-transparent rounded-b-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     ></div>
 
     <!-- ID Badge -->
     <span
-      class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-mono mb-4"
+      class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-sky-50 text-sky-500 text-sm font-medium mb-4"
     >
       {{ post.id }}
     </span>
 
     <!-- Título -->
     <h3
-      class="text-lg font-semibold text-slate-100 mb-3 line-clamp-2 group-hover:text-emerald-300 transition-colors duration-300"
+      class="text-lg font-semibold text-slate-800 mb-3 line-clamp-2 group-hover:text-sky-500 transition-colors duration-300"
     >
       {{ post.title }}
     </h3>
 
     <!-- Descripción -->
-    <p class="text-slate-400 text-sm leading-relaxed mb-5 line-clamp-3">
+    <p class="text-slate-500 text-sm leading-relaxed mb-5 line-clamp-3">
       {{ post.body }}
     </p>
 
     <!-- Botón -->
     <button
       @click="emit('viewDetails', post.id)"
-      class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-white rounded-xl font-medium text-sm transition-all duration-300 border border-emerald-500/30 hover:border-emerald-500 active:scale-[0.98]"
+      class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-sky-500 hover:bg-sky-600 text-white rounded-xl font-medium text-sm transition-all duration-300 shadow-md shadow-sky-200 hover:shadow-sky-300 active:scale-[0.98]"
     >
       Ver más detalles
       <svg
